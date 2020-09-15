@@ -1,0 +1,36 @@
+{
+  "name": "chatnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/KewinLizarraga/chat-NodeJs-SocketIO.git"
+  },
+  "keywords": [
+    "socketio",
+    "nodejs"
+  ],
+  "author": "Kewin Lizarraga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KewinLizarraga/chat-NodeJs-SocketIO/issues"
+  },
+  "homepage": "https://github.com/KewinLizarraga/chat-NodeJs-SocketIO#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "mongoose": "^5.10.5",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
