@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const md5 = require('md5')
-const { User, Message } = require('../models')
+const { User, Message, Room } = require('../models')
 const { AuthController } = require('../controllers')
 
 router.get('/chat', AuthController.isAuthenticatedUser, (req, res) => {
@@ -26,7 +26,9 @@ router.get('/chat/sala/:room', AuthController.isAuthenticatedUser, async (req, r
     gravatar: req.user.gravatar
   }
   const user = await User.find()
-  const message = await Message.find().populate('user')
+  // const roomFind = await Room.findOne({ room })
+  // console.log('roomFind', roomFind)
+  const message = await Message.find().populate('user room')
   res.render('chat/chat', {
     pageName: `Chat | Sala ${room}`,
     user,

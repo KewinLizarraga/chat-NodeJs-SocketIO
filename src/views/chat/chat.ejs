@@ -48,51 +48,31 @@
           <h5 class="card-title"><%= pageName %></h5>
         </div>
         <div class="card-body">
-          <div class="message-history">
+          <div class="message-history" id="message-history">
             <% if (message) { %>
-              <% message.forEach(msg => { %>
-                <div class="incoming-msg">
-                  <div class="incoming-msg-img">
-                    <img
-                      src="http://gravatar.com/avatar/<%= msg.user.gravatar %>?d=monsterid&s=45"
-                      alt=""
-                    />
-                  </div>
-                  <div class="received-msg">
-                    <div class="received-with-msg">
-                      <p><%= msg.message %></p>
-                      <span class="time-date"><%= msg.date %> </span>
+              <% if (room == 1) { %>
+                <% message.forEach(msg => { %>
+                  <div class="incoming-msg">
+                    <div class="incoming-msg-img">
+                      <img
+                        src="http://gravatar.com/avatar/<%= msg.user.gravatar %>?d=monsterid&s=45"
+                        alt=""
+                      />
+                    </div>
+                    <div class="received-msg">
+                      <div class="received-with-msg">
+                        <p><%= msg.message %></p>
+                        <span class="time-date"><%= msg.date %> </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              <% }); %>
+                <% }); %>
+              <% } %> 
             <% } %>
-
-            <!-- Meesage incoming -->
-            <!-- <div class="incoming-msg">
-              <div class="incoming-msg-img">
-                <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
-              </div>
-              <div class="received-msg">
-                <div class="received-with-msg">
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti, obcaecati.
-                  </p>
-                  <span class="time-date">11:01 AM | June 9</span>
-                </div>
-              </div>
-            </div> -->
-            <!-- Message outgoing -->
-            <div class="outgoing-msg" id="outgoing-msg">
-              <div class="msgOut">
-                <!-- <div class="sent-msg"></div>
-                  <div class="outgoing-msg-img"></div> -->
-              </div>
-            </div>
           </div>
         </div>
         <% if (room) { %>
-        <div class="card-footer bg-transparent">
+          <div class="card-footer bg-transparent">
           <div class="input-group">
             <input
               type="text"

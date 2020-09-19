@@ -1,8 +1,3 @@
-// room.addEventListener('click', () => {
-
-//     console.log(room.getAttribute('data-room'))
-// })
-
 const socket = io()
 
 let message = document.getElementById('message')
@@ -22,25 +17,32 @@ if (btnSend) {
 }
 
 socket.on('chat', (data) => {
-  const msgBox = document.getElementById('outgoing-msg').childNodes[1]
+  const messageHistory = document.getElementById('message-history')
 
-  const imgUser = document.getElementById('imgUser')
+  const incomingMsg = document.createElement('div')
+  incomingMsg.className = 'incoming-msg'
+  const incomingMsgImg = document.createElement('div')
+  incomingMsgImg.className = 'incoming-msg-img'
+  const imgUser = document.createElement('img')
+  imgUser.src = `http://gravatar.com/avatar/${data.gravatar}?d=monsterid&s=45`
+  imgUser.alt = 'img-user'
 
-  const p = document.createElement('p')
-  p.textContent = data.message
-  const span = document.createElement('span')
-  span.className = 'time-date'
-  span.textContent = data.date
-  const sentWithMsg = document.createElement('div')
-  sentWithMsg.className = 'sent-with-msg'
-  sentWithMsg.appendChild(p)
-  sentWithMsg.appendChild(span)
-  const sentMsg = document.createElement('div')
-  sentMsg.className = 'sent-msg'
-  sentMsg.appendChild(sentWithMsg)
-  const outgoingMsgImg = document.createElement('div')
-  outgoingMsgImg.className = 'outgoing-msg-img'
-  outgoingMsgImg.appendChild(imgUser)
-  msgBox.appendChild(sentMsg)
-  msgBox.appendChild(outgoingMsgImg)
+  incomingMsgImg.appendChild(imgUser)
+  incomingMsg.appendChild(incomingMsgImg)
+
+  const receivedMsg = document.createElement('div')
+  receivedMsg.className = 'received-msg'
+  const receivedWithMsg = document.createElement('div')
+  receivedWithMsg.className = 'received-with-msg'
+  const msg_p = document.createElement('p')
+  msg_p.textContent = data.message
+  const msg_date = document.createElement('span')
+  msg_date.className = 'time-date'
+  msg_date.textContent = data.date
+
+  receivedWithMsg.appendChild(msg_p)
+  receivedWithMsg.appendChild(msg_date)
+  receivedMsg.appendChild(receivedWithMsg)
+  incomingMsg.appendChild(receivedMsg)
+  messageHistory.appendChild(incomingMsg)
 })

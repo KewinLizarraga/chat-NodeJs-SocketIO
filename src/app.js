@@ -36,8 +36,15 @@ app.use('/', route)
 io.on('connection', (socket) => {
   socket.on('chat', async (data) => {
     const user = await User.findOne({ email: data.email })
-    const room = new Room({ room: data.room, user: user._id })
-    room.save()
+    data.gravatar = user.gravatar
+    const room = await Room.findOne({ room: data.room })
+    let newRoom
+    if (!room) {
+      newRoom = new Room({ room: data.room, user: user._id })
+      newRoom.save()
+    }
+    console.log('newRoom', newRoom)
+
     const message = new Message({
       message: data.message,
       date: data.date,
@@ -50,16 +57,3 @@ io.on('connection', (socket) => {
 })
 
 module.exports = server
-
-// io.on('connection', (socket) => {
-//   socket.on('chat', (data) => {
-//     Chat.create({ name: data.handle, message: data.message })
-//       .then(() => {
-//         io.sockets.emit('chat', data) // return data
-//       })
-//       .catch((err) => console.error(err))
-//   })
-//   socket.on('typing', (data) => {
-//     socket.broadcast.emit('typing', data) // return data
-//   })
-// })
