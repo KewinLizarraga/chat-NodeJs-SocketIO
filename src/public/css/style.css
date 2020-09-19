@@ -22,7 +22,7 @@ img {
 }
 
 .heading {
-  background: #6dd1ec none repeat scroll 0 0;
+  background: #f7f7f7 none repeat scroll 0 0;
   height: 61px;
   padding: 10px 30px 10px 20px;
   overflow: hidden;
@@ -88,10 +88,10 @@ img {
   margin: auto;
 }
 
-.card-header {
+/* .card-header {
   background: #6dd1ec none repeat scroll 0 0;
   border: none;
-}
+} */
 
 .message-history {
   height: 445px;
@@ -184,4 +184,20 @@ img {
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background: #008bb0;
+}
+
+/* Login */
+.form-login {
+  padding: 20px 1rem;
+  margin: 1rem;
+}
+
+.form-login .card {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
+
+.form-login .card .card-header {
+  background: none;
 }

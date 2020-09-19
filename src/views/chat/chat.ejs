@@ -1,139 +1,111 @@
-<div class="container">
-  <img id="imgUser" src="http://gravatar.com/avatar/<%= user.gravatar %>?d=monsterid&s=45" alt="" />
-  <h3 id="user" class="text-center">Chat - User: <%= user.email %></h3>
-  <div class="messaging">
-    <div class="inbox-msg">
-      <div class="inbox-people">
-        <div class="heading">
-          <div class="recent-heading">
-            <h4>Recientes</h4>
-          </div>
+<img
+  id="imgUser"
+  src="http://gravatar.com/avatar/<%= userSession.gravatar %>?d=monsterid&s=45"
+  alt=""
+/>
+<h3 id="user" class="text-center">Chat - User: <%= userSession.email %></h3>
+<div class="messaging">
+  <div class="inbox-msg">
+    <div class="inbox-people">
+      <div class="heading">
+        <div class="recent-heading">
+          <h4>Recientes</h4>
         </div>
-        <div class="inbox-chat">
+      </div>
+      <div class="inbox-chat">
+        <a id="room" href="/chat/sala/1" data-room="1">
           <div class="chat-list active-chat">
             <div class="chat-people">
               <div class="chat-img">
                 <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
               </div>
               <div class="chat-box">
-                <h5>Sunil Rajput <span class="chat-date">Dec 25</span></h5>
+                <h5>Sala 1 <span class="chat-date">Dec 25</span></h5>
                 <p>Lorem ipsum dolor sit amet consectetur...</p>
               </div>
             </div>
           </div>
+        </a>
+        <a id="room" href="/chat/sala/2" data-room="2">
           <div class="chat-list">
             <div class="chat-people">
               <div class="chat-img">
                 <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
               </div>
               <div class="chat-box">
-                <h5>Sunil Rajput <span class="chat-date">Dec 25</span></h5>
+                <h5>Sala 2 <span class="chat-date">Dec 25</span></h5>
                 <p>Lorem ipsum dolor sit amet consectetur...</p>
               </div>
             </div>
           </div>
-          <div class="chat-list">
-            <div class="chat-people">
-              <div class="chat-img">
-                <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
-              </div>
-              <div class="chat-box">
-                <h5>Sunil Rajput <span class="chat-date">Dec 25</span></h5>
-                <p>Lorem ipsum dolor sit amet consectetur...</p>
-              </div>
-            </div>
-          </div>
-          <div class="chat-list">
-            <div class="chat-people">
-              <div class="chat-img">
-                <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
-              </div>
-              <div class="chat-box">
-                <h5>Sunil Rajput <span class="chat-date">Dec 25</span></h5>
-                <p>Lorem ipsum dolor sit amet consectetur...</p>
-              </div>
-            </div>
-          </div>
-          <div class="chat-list">
-            <div class="chat-people">
-              <div class="chat-img">
-                <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
-              </div>
-              <div class="chat-box">
-                <h5>Sunil Rajput <span class="chat-date">Dec 25</span></h5>
-                <p>Lorem ipsum dolor sit amet consectetur...</p>
-              </div>
-            </div>
-          </div>
-          <div class="chat-list">
-            <div class="chat-people">
-              <div class="chat-img">
-                <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
-              </div>
-              <div class="chat-box">
-                <h5>Sunil Rajput <span class="chat-date">Dec 25</span></h5>
-                <p>Lorem ipsum dolor sit amet consectetur...</p>
-              </div>
-            </div>
-          </div>
-          <div class="chat-list">
-            <div class="chat-people">
-              <div class="chat-img">
-                <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
-              </div>
-              <div class="chat-box">
-                <h5>Sunil Rajput <span class="chat-date">Dec 25</span></h5>
-                <p>Lorem ipsum dolor sit amet consectetur...</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        </a>
       </div>
+    </div>
 
-      <div class="message-box">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title">Sunil Rajput</h5>
-          </div>
-          <div class="card-body">
-            <div class="message-history">
-              <!-- Meesage incoming -->
-              <div class="incoming-msg">
-                <div class="incoming-msg-img">
-                  <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
-                </div>
-                <div class="received-msg">
-                  <div class="received-with-msg">
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti, obcaecati.
-                    </p>
-                    <span class="time-date">11:01 AM | June 9</span>
+    <div class="message-box">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><%= pageName %></h5>
+        </div>
+        <div class="card-body">
+          <div class="message-history">
+            <% if (message) { %>
+              <% message.forEach(msg => { %>
+                <div class="incoming-msg">
+                  <div class="incoming-msg-img">
+                    <img
+                      src="http://gravatar.com/avatar/<%= msg.user.gravatar %>?d=monsterid&s=45"
+                      alt=""
+                    />
+                  </div>
+                  <div class="received-msg">
+                    <div class="received-with-msg">
+                      <p><%= msg.message %></p>
+                      <span class="time-date"><%= msg.date %> </span>
+                    </div>
                   </div>
                 </div>
+              <% }); %>
+            <% } %>
+
+            <!-- Meesage incoming -->
+            <!-- <div class="incoming-msg">
+              <div class="incoming-msg-img">
+                <img src="https://ptetutorials.com/images/user-profile.png" alt="" />
               </div>
-              <!-- Message outgoing -->
-              <div class="outgoing-msg" id="outgoing-msg">
-                <div class="msgOut">
-                  <!-- <div class="sent-msg"></div>
-                  <div class="outgoing-msg-img"></div> -->
+              <div class="received-msg">
+                <div class="received-with-msg">
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti, obcaecati.
+                  </p>
+                  <span class="time-date">11:01 AM | June 9</span>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="card-footer bg-transparent">
-            <div class="input-group">
-              <input
-                type="text"
-                id="message"
-                class="form-control"
-                placeholder="Escribe un mensaje aquí"
-              />
-              <div class="input-group-append">
-                <button type="button" id="btnSend" class="btn btn-success">Enviar</button>
+            </div> -->
+            <!-- Message outgoing -->
+            <div class="outgoing-msg" id="outgoing-msg">
+              <div class="msgOut">
+                <!-- <div class="sent-msg"></div>
+                  <div class="outgoing-msg-img"></div> -->
               </div>
             </div>
           </div>
         </div>
+        <% if (room) { %>
+        <div class="card-footer bg-transparent">
+          <div class="input-group">
+            <input
+              type="text"
+              id="message"
+              class="form-control"
+              placeholder="Escribe un mensaje aquí"
+            />
+            <div class="input-group-append">
+              <button type="button" id="btnSend" class="btn btn-success">Enviar</button>
+            </div>
+          </div>
+        </div>
+        <% } %>
       </div>
     </div>
   </div>

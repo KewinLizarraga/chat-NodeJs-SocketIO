@@ -1,24 +1,44 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const md5 = require('md5')
-const { User } = require('../models')
+const { User, Message } = require('../models')
 const { AuthController } = require('../controllers')
 
 router.get('/chat', AuthController.isAuthenticatedUser, (req, res) => {
-  const user = {
+  const room = 0
+  const userSession = {
     email: req.user.email,
     gravatar: req.user.gravatar
   }
+  const message = 0
   res.render('chat/chat', {
     pageName: 'Chat NodeJS SocketIO',
-    user
+    userSession,
+    room,
+    message
+  })
+})
+
+router.get('/chat/sala/:room', AuthController.isAuthenticatedUser, async (req, res) => {
+  const { room } = req.params
+  const userSession = {
+    email: req.user.email,
+    gravatar: req.user.gravatar
+  }
+  const user = await User.find()
+  const message = await Message.find().populate('user')
+  res.render('chat/chat', {
+    pageName: `Chat | Sala ${room}`,
+    user,
+    userSession,
+    room,
+    message
   })
 })
 
 router.get('/login', (req, res) => {
   res.render('login', {
-    pageName: 'Iniciar Sesión',
-    layout: false
+    pageName: 'Iniciar Sesión'
   })
 })
 
@@ -26,8 +46,7 @@ router.post('/login', AuthController.authenticateUser)
 
 router.get('/signin', (req, res) => {
   res.render('signin', {
-    pageName: 'Registrar',
-    layout: false
+    pageName: 'Registrar'
   })
 })
 

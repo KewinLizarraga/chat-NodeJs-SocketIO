@@ -9,6 +9,7 @@ const io = require('socket.io')(server)
 
 const passport = require('./config/passport.config')
 const route = require('./routes')
+const { Message, Room, User } = require('./models')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -33,10 +34,32 @@ app.use(passport.session())
 app.use('/', route)
 
 io.on('connection', (socket) => {
-  socket.on('chat', (data) => {
-    console.log(data)
+  socket.on('chat', async (data) => {
+    const user = await User.findOne({ email: data.email })
+    const room = new Room({ room: data.room, user: user._id })
+    room.save()
+    const message = new Message({
+      message: data.message,
+      date: data.date,
+      user: user._id,
+      room: room._id
+    })
+    message.save()
     io.sockets.emit('chat', data)
   })
 })
 
 module.exports = server
+
+// io.on('connection', (socket) => {
+//   socket.on('chat', (data) => {
+//     Chat.create({ name: data.handle, message: data.message })
+//       .then(() => {
+//         io.sockets.emit('chat', data) // return data
+//       })
+//       .catch((err) => console.error(err))
+//   })
+//   socket.on('typing', (data) => {
+//     socket.broadcast.emit('typing', data) // return data
+//   })
+// })
